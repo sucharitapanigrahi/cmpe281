@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html ng-app="ScrumApp">
+<head>
+<!-- script src="angular.js"></script -->
+<link rel="stylesheet" type="text/css"
+ href="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.css">
+
+<link href="css/scrum.css" rel="stylesheet">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.8.3/angular-material.min.js"></script> 
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="https://code.jquery.com/jquery.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>   
+<script src="js/scrum.js"></script>
+
+<meta charset="UTF-8">
+<title>Scrum</title>
+</head>
+<body style="background-image: url(http://www.decowunder-tapeten.de/out/pictures/master/product/1/Tapete_Fleuri_Pastel_93767-1G.jpg);">
+<table>
+<tr>
+<td>
+<div layout="column">
+		<div>
+			
+			<h1 class="md-toolbar-tools linked-in-image-padding" layout-align-gt-sm="left" style="margin-top:40px;">
+			<img src="http://www.mountaingoatsoftware.com/uploads/articles/Scrum_256x256.png" class="logo" height="110" width="136">
+				<p><font size="8">
+				<b>
+				<i>
+				SCRUM METHODOLOGY
+				</i>
+				</b>
+				</font></p>
+			</h1>
+			<form name="LoginForm" layout-align-gt-sm="center">
+			</form>
+			</md-toolbar>
+		
+		</div>
+		
+	</div>
+	</td>
+	<td>
+	<p><font size="8">
+	<b>
+	   <div class="navbar-collapse collapse" style="margin-left:1000px;">
+          </p>
+       </b>
+          <a href="index">Logout</a>
+           </div><!--/.nav-collapse -->
+           </td>
+           </tr>
+           </table>
+	        <!-- Code for input Fields  -->
+	<div  ng-controller="FirstCtrl" layout="column" style="margin-top:50px;">
+		  <md-content md-theme="docs-light" layout-padding layout="row" layout-sm="column" >
+		  <h1 layout-align-gt-sm="left left" style="margin-left:20px;">
+		  <u>
+			New Project
+	    </u>
+			</h1>
+		  </md-content>
+		  </div>
+       
+       		<form name="AddTaskForm" ng-controller="AddBackCtrl">
+          <div class="panel panel-default" >
+                         <div class="panel-body">
+                         <table>
+                         <tr>
+                     
+                          </div>
+                       </div>
+       		 <td>
+       		
+			<table>
+			 <tr ng-repeat="item in items">	
+				 <div layout layout-sm="column" style="margin-left:20px;"> 
+	 				 <td> <md-input-container flex>
+			          <label>Name of the Project</label>
+			           <input required ng-model="item.n_proj">
+			        </md-input-container></td>		     
+			       <td> <md-input-container flex>
+			          <label>Start Date</label>
+			           <input type="date" required ng-model="item.start_date">
+			        </md-input-container></td>
+			       <td> <md-input-container flex>
+			          <label>Ideal End Date</label>
+			         <input type="date" required ng-model="item.end_date">
+			        </md-input-container></td>
+			        <td><md-input-container flex>
+			          <label>Total Hours</label>
+			         <input required ng-model="item.total_hours" >
+			        </md-input-container></td>
+			         <td><md-input-container flex>
+			          <label>Name of Resources</label>
+			         <input required ng-model="item.n_res" >
+			        </md-input-container></td>
+			          <td><md-input-container flex>
+			          <label>Sprint</label>
+			         <input required ng-model="item.sprint_no" >
+			        </md-input-container></td>
+			          </div>	 
+			
+			</table>
+			<section layout="row"  layout-align="center left"> 
+			<md-button id="myA" ng-click="addRow()" class="md-raised md-primary  md-hue-3" id="add-task-button" aria-label="Profile" style="margin-left:20px;" style="margin-right:10px;">Add</md-button> 			
+			<md-button ng-click="delRow()" class="md-raised md-primary  md-hue-3" id="del-task-button" aria-label="Profile" style="margin-left:20px;" style="margin-right:10px;">Delete</md-button>			
+			<md-button ng-click="save()" class="md-raised md-primary  md-hue-3" id="save-task-button" aria-label="Profile" style="margin-left:20px;">Save</md-button></section>					
+
+
+ <table>
+			 <tr ng-repeat="object in objects" class="margin:50px;">	
+				 <div layout layout-sm="column"> 
+			       <td> <md-input-container flex>
+			          <label>User Story</label>
+			        <input required ng-model="object.u_story">
+			        </md-input-container></td>
+			         <td> <md-input-container flex>
+			          <label>Name</label>
+			        <input required ng-model="object.name">
+			        </md-input-container></td>
+			         <td> <md-input-container flex>
+			          <label>Sprint</label>
+			        <input required ng-model="object.sprintno">
+			        </md-input-container></td>
+			</table>
+			
+			<section layout="row"  layout-align="center left"> 
+			<md-button id="myP" ng-click="addRow1()" class="md-raised md-primary  md-hue-3" id="add-task-button" aria-label="Profile" style="margin-left:20px;" style="margin-right:10px;">Add</md-button> 			
+			<md-button ng-click="delRow1()" class="md-raised md-primary  md-hue-3" id="del-task-button" aria-label="Profile" style="margin-left:20px;" style="margin-right:10px;">Delete</md-button>			
+			<md-button ng-click="save1()" class="md-raised md-primary  md-hue-3" id="save-task-button" aria-label="Profile" style="margin-left:20px;">Save</md-button></section>
+			</td>
+			
+		    <td>
+            <div ng-repeat="education in jsondata">
+            <input type="text" id="eduUniversity{{education.n_proj}}" style="font-size: 50%" value={{education.n_proj}}>
+             </div>
+             </td>
+			</tr>
+			</table>
+			
+			<div layout-align="center">
+			<section layout="row" layout-sm="column" style="margin-top:50px;" style="margin-right:50px;" >
+			<md-button type="submit" ng-click="sprint()" class="md-raised md-primary md-background md-hue-3" style="margin-left:350px" id="add-project-button" aria-label="Profile">
+			Create New Project
+			</md-button>
+			</section>
+			</div>					
+</form>
+
+
+
+</body>
+
+</html>

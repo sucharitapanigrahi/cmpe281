@@ -1,0 +1,169 @@
+<html>
+  <head>
+    <title>Burndown Chart</title>
+    
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="http://code.highcharts.com/highcharts.js"></script>
+	<script src="http://code.highcharts.com/modules/exporting.js"></script>
+	
+	<style>
+		.btn {
+		  background: #3498db;
+		  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+		  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+		  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+		  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+		  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+		  -webkit-border-radius: 28;
+		  -moz-border-radius: 28;
+		  border-radius: 28px;
+		  font-family: Arial;
+		  color: #ffffff;
+		  font-size: 14px;
+		  padding: 5px 10px 5px 10px;
+		  text-decoration: none;
+		}
+		
+		.btn:hover {
+		  background: #3cfcc6;
+		  background-image: -webkit-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: -moz-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: -ms-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: -o-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: linear-gradient(to bottom, #3cfcc6, #71b7e6);
+		  text-decoration: none;
+		}
+	</style>
+  </head>
+  <body>
+  <div  ng-app="" ng-controller="personController">
+  <nav class="navbar navbar-inverse">
+	  <div class="container-fluid">
+	    <div class="navbar-header" style="color: #FFFFFF">
+	      SCRUM- Sprints
+	    </div>
+	    <div class="navbar-collapse collapse">
+	          <ul class="nav navbar-nav navbar-right">
+	          <li><a href="KanbanprojectStatus">Project Status</a></li>
+	          <li><a href="index">Logout</a></li>
+	          </ul>
+	        </div>
+	  </div>
+	</nav>
+  
+  
+	BURNDOWN CHART
+	<div id="container" style="min-width: 310px; height: 400px; max-width: 600px; margin: 0 auto"></div>
+
+ </div>  
+ </body>
+ <script>
+ 
+ 	function toppingfunction(totalhrs, idealdays, newdays){
+		$('#container').highcharts({
+	        chart: {
+	            type: 'area'
+	        },
+	        title: {
+	            text: 'Burndown'
+	        },
+	        subtitle: {
+	            text: 'Chart'
+	        },
+	        xAxis: {
+	            //allowDecimals: false,
+	            title: {
+	                text: 'Days'
+	            },
+	            labels: {
+	                formatter: function () {
+	                    return this.value; // clean, unformatted number for year
+	                }
+	            }
+	        },
+	        yAxis: {
+	            title: {
+	                text: 'Remaining hours'
+	            },
+	            labels: {
+	                formatter: function () {
+	                    return this.value;
+	                }
+	            }
+	        },
+	        tooltip: {
+	            pointFormat: '{series.name} produced <b>{point.y:,.0f}</b><br/>warheads in {point.x}'
+	        },
+	        plotOptions: {
+	            area: {
+	                pointStart: 1,
+	                marker: {
+	                    enabled: false,
+	                    symbol: 'circle',
+	                    radius: 2,
+	                    states: {
+	                        hover: {
+	                            enabled: true
+	                        }
+	                    }
+	                }
+	            }
+	        },
+	        series: [{
+	            name: 'Ideal',
+	            data: [totalhrs, idealdays]//
+	        }, {
+	            name: 'Current',
+	            data: [ totalhrs, newdays]
+	        }]
+	    });	    	
+	}
+ 	
+ 
+ 
+ 	function personController($scope,$http,$location) {
+ 		loaddata();
+ 			  	
+	  	function loaddata(){
+	  		
+	  		$http({
+				  	url: '/getChartdata', 
+				  	method: "POST",
+				  	data: { "sprintselected": 1, "projectselected": "project1"}
+				 	}).success(function(response){
+					           var temp = JSON.parse(response.chartdata);
+					           $scope.jsonchartdata =temp;
+					          	console.log(temp);
+					           //$scope.projectname = jsonsprintdata[0].projectname;
+					          	var datestring = $scope.jsonchartdata[0].startdate.split("T");
+			          			var startdate = new Date(datestring[0]);
+			          			datestring = $scope.jsonchartdata[0].idealenddate.split("T");
+			          			var idealenddate = new Date(datestring[0]);
+			          			datestring = $scope.jsonchartdata[0].expectedenddate.split("T");
+			          			var enddate = new Date(datestring[0]);
+			          			var totalhrs = $scope.jsonchartdata[0].totalhours;
+			          			var oneDay = 24*60*60*1000;
+			          			var xdiff1 = Math.round(Math.abs((idealenddate.getTime() - startdate.getTime())/(oneDay)));
+			          			var xdiff2 = Math.round(Math.abs((enddate.getTime() - startdate.getTime())/(oneDay)));
+			          			console.log(totalhrs+" " +xdiff1+" " + xdiff2);
+			          			toppingfunction(totalhrs, xdiff1, xdiff2);
+					        }).error(function(error){
+					            alert("error");
+					        });
+	  	}
+	  	
+ 	}
+ </script>
+</html>

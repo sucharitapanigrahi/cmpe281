@@ -1,0 +1,297 @@
+<html>
+  <head>
+    <title>Scrum Model</title>
+    
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap-theme.min.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+    <link rel='stylesheet' href='/stylesheets/bootstrap.min.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src= "http://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery.js"></script>
+ 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	
+	<style>
+		.btn {
+		  background: #3498db;
+		  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+		  background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+		  background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+		  background-image: -o-linear-gradient(top, #3498db, #2980b9);
+		  background-image: linear-gradient(to bottom, #3498db, #2980b9);
+		  -webkit-border-radius: 28;
+		  -moz-border-radius: 28;
+		  border-radius: 28px;
+		  font-family: Arial;
+		  color: #ffffff;
+		  font-size: 14px;
+		  padding: 5px 10px 5px 10px;
+		  text-decoration: none;
+		}
+		
+		.btn:hover {
+		  background: #3cfcc6;
+		  background-image: -webkit-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: -moz-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: -ms-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: -o-linear-gradient(top, #3cfcc6, #71b7e6);
+		  background-image: linear-gradient(to bottom, #3cfcc6, #71b7e6);
+		  text-decoration: none;
+		}
+	</style>
+  </head>
+  <body>
+  <div  ng-app="" ng-controller="personController">
+  <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header" style="color: #FFFFFF">
+      SCRUM- Sprints
+    </div>
+    <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+          <li><a href="KanbanprojectStatus">Project Status</a></li>
+          <li><a href="index">Logout</a></li>
+          </ul>
+        </div>
+  </div>
+</nav>
+  
+  
+<h3> {{jsonsprintdata[0].projectname}} </h3>
+
+<div ng-repeat="sprints in jsondata">
+	<div class="panel panel-info">
+	  <!-- Default panel contents -->
+	  <div class="panel-heading">Sprint {{sprints}} </div>
+	  <div class="panel-body">
+	  	<table class="table">
+	  		<tr>
+	  			<td><p>Start Date : {{jsonsprintdata[sprints-1].startdate}}</p>
+	  			</td>
+	  			<td><p>Ideal End Date : {{jsonsprintdata[sprints-1].idealenddate}}</p>
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td><p>Total hours : {{jsonsprintdata[sprints-1].totalhours}}</p>
+	  			</td>
+	  			<td><p>Ideal Velocity : {{jsonsprintdata[sprints-1].idealvelocity}}</p>
+	  			</td>
+	  		</tr>
+	  		<tr>
+	  			<td><p>Resources : {{jsonsprintdata[sprints-1].team}}</p>
+	  			</td>
+	  		</tr>
+	  	</table>
+	  </div>
+	  
+	
+	  <!-- List group -->
+	  <ul class="list-group">
+	    <li class="list-group-item">Remaining hours: {{jsonsprintdata[sprints-1].remaininghours}}
+		    <button type="button" class="btn btn-primary" id ="sprintbtn{{sprints}}" data-toggle="modal" data-target="#smallModal">Edit </button>
+		    <div class="modal fade" id="smallModal" tabindex="-1" role="dialog" aria-labelledby="smallModal" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">Edit</h4>
+				      </div>
+				      <div class="modal-body">
+				        Remaining Hours: <input type="text" id="newhours" class="form-control" placeholder="Enter hours">
+				        <br>
+				        Day: <input type="text" id="newday" class="form-control" placeholder="Enter day">
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="updatescrum(sprints)" >OK</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+	    </li>
+	    <li class="list-group-item">Status: <data style="color: #08088A"><b>{{jsonsprintdata[sprints-1].status}}</b></data> 		    
+	    </li>
+	    <li class="list-group-item">Expected End Date: {{jsonsprintdata[sprints-1].expectedenddate}} 		    
+	    </li>
+	    <li class="list-group-item">Velocity: {{jsonsprintdata[sprints-1].velocity}} 		    
+	    </li>
+	    <li class="list-group-item">
+	    	<div align="center">
+	    		<button type="button" ng-click="getStories(sprints)" class="btn btn-primary" data-toggle="modal" data-target="#basicModal">Stories </button>
+	    		<button type="button" ng-click="gotoCharts()" class="btn btn-primary" id ="chartbtn{{sprints}}">Chart </button>
+				
+				<div class="modal fade" id="basicModal" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+				  <div class="modal-dialog">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				        <h4 class="modal-title" id="myModalLabel">Stories</h4>
+				      </div>
+				      <div class="modal-body">
+				        <div class="panel panel-default" >
+							<div class="panel-body">
+							   	<b><input type="text" disabled style="font-size: 100%; background-color :white;border:none;" value="Story">
+							  	<input type="text" disabled style="font-size: 100%;background-color :white;border:none;" value="Resourse"></b>
+							  <div ng-repeat="story in stories">
+							  	<input type="text" disabled style="font-size: 100%; background-color :white;border:none;" value={{story.story}}>
+							  	<input type="text" disabled style="font-size: 100%;background-color :white;border:none;" value={{story.resource}}>
+							  </div>  
+							</div>
+						 </div>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">OK</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>    
+	    	<div> 		    
+	    </li>
+	  </ul>
+	</div>
+<div ng-repeat="sprints in jsondata">
+
+
+ </div>  
+ </body>
+ <script>
+ 	function personController($scope,$http,$location) {
+ 		loadsprints();
+ 		loadsprintdata();
+ 		$scope.project = 'project1';
+ 		function loadsprints(){
+	  		$http({
+				  	url: '/getSprints', 
+				  	method: "GET",
+				  	data: { "projectname": $scope.project}
+				 	}).success(function(response){
+					           //var jsondata = JSON.parse(response.sprintdata);
+					           var temp = JSON.parse(response.sprintCount);
+					           var temparr =[];
+					           for(var i=0;i<temp[0].sno;i++){
+					           		temparr.push(i+1);
+					           }
+					           //alert(temp + " " + temparr);
+					           $scope.jsondata = temparr;
+					           //console.log(jsondata);
+					          
+					        }).error(function(error){
+					            alert("error");
+					        });
+	  	}
+	  	
+	  	function loadsprintdata(){
+	  		$http({
+				  	url: '/getSprintdata', 
+				  	method: "GET",
+				  	data: { "projectname": $scope.project}
+				 	}).success(function(response){
+					           var temp = JSON.parse(response.sprintdata);
+					           $scope.jsonsprintdata =temp;
+					          	//console.log(temp);
+					           //$scope.projectname = jsonsprintdata[0].projectname;
+					          
+					        }).error(function(error){
+					            alert("error");
+					        });
+	  	}
+ 		//$scope.jsondata = [1,2,3];
+ 		
+ 			$scope.getStories = function(sprintno) {
+			var sprintselected = sprintno;
+			$http({
+			            method: 'POST',
+			            url: '/stories',
+			            data: { "sprintselected": sprintselected}
+			            
+			         }).success(function(response){
+			          //alert("Education Deleted");
+			          var temp = JSON.parse(response.stories);
+			          $scope.stories  = temp;
+			          console.log(temp);
+			        }).error(function(error){
+			            alert("error");
+			        });
+			};
+			
+			$scope.updatescrum = function(sprintno) {
+			var sprintselected = sprintno;
+			var newhrsy3 = document.getElementById("newhours").value;
+			var newdayx3 = document.getElementById("newday").value;
+			
+			console.log($scope.jsonsprintdata);
+			          var datestring = $scope.jsonsprintdata[sprintno-1].startdate.split("T");
+			          var startdate = new Date(datestring[0]);
+			          console.log("start"+startdate);
+			          datestring = $scope.jsonsprintdata[sprintno-1].idealenddate.split("T");
+			          var enddate = new Date(datestring[0]);
+			          console.log("end"+enddate);
+			          var oneDay = 24*60*60*1000;
+			          var xdiff = Math.round(Math.abs((enddate.getTime() - startdate.getTime())/(oneDay)));
+			          console.log("diff"+xdiff);
+			          var ydiff = (0-$scope.jsonsprintdata[sprintno-1].totalhours);
+			          var m=(ydiff/xdiff);
+			          //var c=($scope.jsonsprintdata[sprintno-1].totalhours - (m*1));
+			          var c=(newhrsy3 - (m*newdayx3));
+			          //update newvelo to database
+			          var newvelo = ((newhrsy3-c)/newdayx3);
+			          //update status to database
+			          var newstatus=$scope.jsonsprintdata[sprintno-1].status;
+			          if ($scope.jsonsprintdata[sprintno-1].remaininghours===0)
+			          {
+			          	newstatus = "Complete";
+			          	document.getElementById("sprintbtn1").disabled=true;
+			          }
+			          else if(newvelo < m)
+			          	newstatus="Early";
+			          else if (newvelo > m)
+			          	newstatus = "Late";
+			          else if (newvelo == m)
+			          	newstatus = "On Time";
+			          
+			          //update expected end date 
+			          //var newtotaldays=Math.round((newhrsy3-$scope.jsonsprintdata[sprintno-1].totalhours + (m*1))/m);
+			          var newtotaldays=Math.round((newhrsy3-c)/m);
+			          console.log("new days"+newtotaldays);
+			          //--adding new totaldays to start date to get expected end date
+			          var newenddate = new Date(startdate.getTime() + newtotaldays*24*60*60*1000);
+			          console.log(xdiff+ " " +m + " " +c + " "+newvelo+ " " +status + " " + newenddate);
+			
+			
+			
+			
+			$http({
+			            method: 'POST',
+			            url: '/updatescrum',
+			            data: { "sprintselected": sprintselected, "Hours":newhrsy3, "Velocity":newvelo, "Status": newstatus, "NewDate": newenddate}
+			            
+			         }).success(function(response){
+			          //alert("Education Deleted");
+			          
+			          loadsprintdata();
+			        }).error(function(error){
+			            alert("error");
+			        });
+			};
+			
+			$scope.gotoCharts = function() {
+				$http({
+				  	url: '/burndown', 
+				  	method: "GET",
+				 	}).success(function(response){
+					           
+					            //alert(JSON.stringify(response));
+					            window.location = '/burndown';
+					          
+					        }).error(function(error){
+					            alert("error");
+					        });
+					};
+ 		
+ 	}
+ </script>
+</html>

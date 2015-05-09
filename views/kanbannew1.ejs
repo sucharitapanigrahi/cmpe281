@@ -1,0 +1,447 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+	<head>
+		<meta name="description" content="Drag and drop table content with JavaScript"/>
+		<meta name="viewport" content="width=device-width, user-scalable=no"/>
+		<link rel="stylesheet" href="style.css" type="text/css" media="screen" />
+		
+		 <link rel='stylesheet' href='/stylesheets/css/bootstrap-theme.css' />
+   		 <link rel='stylesheet' href='/stylesheets/css/bootstrap-theme.min.css' />
+   		 <link rel='stylesheet' href='/stylesheets/css/bootstrap.css' />
+    	 <link rel='stylesheet' href='/stylesheets/css/bootstrap.min.css' />   
+   		 <link rel='stylesheet' href='/stylesheets/css/style.css' />
+   		 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+   		 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>	
+  		<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  		<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script type="text/javascript" src="/stylesheets/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="/stylesheets/js/script.js"></script>
+		<script type="text/javascript" src="/stylesheets/js/redips-drag-min.js"></script>
+		<script type="text/javascript" src="/stylesheets/js/redips-drag-source.js"></script>
+		
+          <title>Kanban Model</title>
+	</head>
+	
+	<body style="overflow-x:hidden;overflow-y:hidden; ">
+	<!--Header--> 
+	<div id = "header">
+	<div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/kanbannew">Welcome</a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+     
+          <li><a href="#" data-toggle="modal" data-target="#myModal" data-whatever="Add Card">Add Card</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#projstatModal" data-whatever="Project Status">Project Status</a></li>
+          <li><a href="index">Logout</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </div>
+</div>
+
+	<div class = "container"
+		<!-- tables inside this DIV could have draggable content -->
+		<div id="redips-drag" style="padding-top: 100px;padding-right: 20px; padding-left: 20px;">
+			<table id="table1">
+				
+				<tr>
+					<td class="redips-mark" style="text-align: center;"><b>New Requests</b></td>
+					<td class="redips-mark" style="text-align: center;"><b>Ready to Start</b></td>
+					<td class="redips-mark" style="text-align: center;"><b>In Progress</b></td>
+					<td class="redips-mark" style="text-align: center;"><b>Ready for Review</b></td>
+					<td class="redips-mark" style="text-align: center;"><b>Recently Finished</b></td>
+				</tr>
+				<tr style="background-color: #eee">
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].NC_TITLE %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;"  name="title" ><%= tablelist[i].NC_TITLE %></div>
+								<div data-id="<%= tablelist[i].NC_DESC %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].NC_DESC %></div>
+						     </a></div>
+					 <% } } %> 
+					</td>
+					
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RTS_TITLE %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;"  name="title" ><%= tablelist[i].RTS_TITLE %></div>
+								<div data-id="<%= tablelist[i].RTS_DESC %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].RTS_DESC %></div>
+						     </a></div>
+					 <% } } %> 
+					</td>
+					
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+						 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].IP_TITLE %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].IP_TITLE %></div>
+								<div data-id="<%= tablelist[i].IP_DESC %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].IP_DESC %></div>
+						     </a></div>
+						   
+					 <% } } %> 
+					 </td>
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 	 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RFR_TITLE %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].RFR_TITLE %></div>
+								<div data-id="<%= tablelist[i].RFR_DESC %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].RFR_DESC %></div>
+						     </a></div>
+					 <% } } %>  
+					</td>
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+						 	 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RF_TITLE %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].RF_TITLE %></div>
+								<div data-id="<%= tablelist[i].RF_DESC %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"	><%= tablelist[i].RF_DESC %></div>
+						     </a></div>
+					 <% } } %> 
+					</td>
+				</tr>
+				<tr style="background-color: #eee">
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].NC_TITLE1 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;"  name="title" ><%= tablelist[i].NC_TITLE1 %></div>
+								<div data-id="<%= tablelist[i].NC_DESC1 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].NC_DESC1 %></div>
+						     </a></div>
+					 <% } } %> 
+					</td>
+					
+					
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RTS_TITLE1 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;"  name="title" ><%= tablelist[i].RTS_TITLE1 %></div>
+								<div data-id="<%= tablelist[i].RTS_DESC1 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].RTS_DESC1 %></div>
+						     </a></div>
+						   
+						 
+					 <% } } %> 
+					</td>
+					
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+						 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].IP_TITLE1 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].IP_TITLE1 %></div>
+								<div data-id="<%= tablelist[i].IP_DESC1 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].IP_DESC1 %></div>
+						     </a></div>
+						   
+					 <% } } %> 
+					 </td>
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 	 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RFR_TITLE1 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].RFR_TITLE1 %></div>
+								<div data-id="<%= tablelist[i].RFR_DESC1 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].RFR_DESC1 %></div>
+						     </a></div>
+					 <% } } %>  
+					</td>
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+						 	 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RF_TITLE1 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].RF_TITLE1 %></div>
+								<div data-id="<%= tablelist[i].RF_DESC1 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"	><%= tablelist[i].RF_DESC1 %></div>
+						     </a></div>
+					 <% } } %> 
+					</td>
+				</tr>
+				<tr style="background-color: #eee">
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;"></td>
+					
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+					 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].RTS_TITLE2 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;"  name="title" ><%= tablelist[i].RTS_TITLE2 %></div>
+								<div data-id="<%= tablelist[i].RTS_DESC2 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].RTS_DESC2 %></div>
+						     </a></div>
+						   
+						 
+					 <% } } %> 
+					</td>
+					
+					<td style="padding-right: 20px; padding-left: 20px; width: 220px; background-color: antiquewhite;">
+						 <% 
+		 				 var i=0;
+		  					if(i<tablelist.length) {
+		  					for (var i=0;i<tablelist.length;i++) { %>
+						   <div id="d1" class="redips-drag t1" style="height: 100px;">		
+							    <a href="#" class="anchorforCard" data-toggle="modal" data-target="#newModal" data-whatever="EditCard" style="color:darkred;">
+							    <div data-id="<%= tablelist[i].IP_TITLE2 %>" class="open-AddCardTitle" style="text-align: center; background-color: burlywood;" name="title" ><%= tablelist[i].IP_TITLE2 %></div>
+								<div data-id="<%= tablelist[i].IP_DESC2 %>" class="open-AddCardDesc" style="text-align: center; height: 50px;" name="desc"><%= tablelist[i].IP_DESC2 %></div>
+						     </a></div>
+						   
+					 <% } } %> 
+					 <td style="padding-right: 20px; padding-left: 20px; width: 220px;background-color: antiquewhite;"></td>
+					 <td style="padding-right: 20px; padding-left: 20px; width: 220px;background-color: antiquewhite;"></td>
+				</tr>
+			</table>
+
+			<table id="table3" >
+				<colgroup><col width="100"/><col width="100"/><col width="100"/><col width="100"/><col width="100"/></colgroup>
+				<tr>
+					<td style="padding-top:1000px;" id="message" class="redips-mark" title="You can not drop here"></td>					
+				</tr>
+				<tr style="background-color: #eee">
+					<td class="redips-trash" title="Trash" ></td>
+				</tr>
+			</table>
+			<div><input type="hidden" class="checkbox" onclick="toggleDragging(this)" title="Enable dragging" checked="true"/><span class="message_line"></span></div>			
+		</div>
+	</div>
+		
+ <!--Footer--> 
+<div class="navbar navbar-default navbar-fixed-bottom">
+     <div class="container">
+   </div> <!-- container-->
+   </div> <!-- navbar navbar-default navbar-fixed-bottom" --> 
+ 
+  <!-- Modal- Add Card -->
+ <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Add new card</h4>
+  </div>
+  <form action="/addCard" method="post" id="addcard" class="form-horizontal" role="form">
+  <div class="modal-body" style="height: 230px;">
+           <div class="form-group">
+                <label for="title" class="col-md-3 control-label">Title</label>
+                <div class="col-md-9">
+                   <input type="text" class="form-control" name="title" placeholder="Enter Card title here...">
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="title" class="col-md-3 control-label">Description</label>
+                <div class="col-md-9">
+                   <textarea class="form-control" name="desc" placeholder="Enter Card description here..."></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="priority" class="col-md-3 control-label">Priority</label>
+                <div class="col-md-9">
+                   <select name="priority" class="form-control">
+                    <option value="critical">Critical</option>
+                   	<option value="high">High</option>
+                   	<option value="normal">Normal</option>
+                   	<option value="low">Low</option>
+                   	</select>
+                </div>
+      		 </div>
+      		 <div class="form-group">
+                <label for="priority" class="col-md-3 control-label">Date Range</label>
+                <div class="col-md-4">
+      				 <input type="text" id="datepicker" name="startdate" Placeholder="Planned Start Date...">
+       			</div>
+       			<div class="col-md-4">
+      				 <input type="text" id="datepicker1" name="finishdate" Placeholder="Planned Finish Date...">
+       			</div>
+       		</div>
+       </div>  
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button class="btn btn-primary" id="formSubmit" type="submit">Add</button>
+  </div>
+   </form>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+ <!-- Modal- Edit Card -->
+ <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title">Update Card</h4>
+  </div>
+  <form action="editcard" method="post" id="editcard" class="form-horizontal" role="form">
+  <div class="modal-body" style="height: 230px;">
+           <div class="form-group">
+                <label for="title" class="col-md-3 control-label">Title</label>
+                <div class="col-md-9">
+                   <input type="text" class="form-control" id="title" name="title" value=""/>
+                </div>
+            </div>
+             <div class="form-group">
+                <label for="title" class="col-md-3 control-label">Description</label>
+                <div class="col-md-9">
+                   <textarea class="form-control" id="desc" name="desc" value=""></textarea>
+                </div>
+            </div>
+            
+             <div class="form-group">
+                <label for="priority" class="col-md-3 control-label">Date Range</label>
+                <div class="col-md-4">
+      				 <input type="text" id="datepicker2" name="startdate" Placeholder="05/06/2015">
+       			</div>
+       			<div class="col-md-4">
+      				 <input type="text" id="datepicker3" name="finishdate" Placeholder="05/13/2015">
+       			</div>
+       		</div>
+       		
+            <div class="form-group">
+                <label for="priority" class="col-md-3 control-label">Resource</label>
+                <div class="col-md-9">
+                   <select name="priority" class="form-control">
+                    <option value="Santhi">Santhi</option>
+                   	<option value="Sucharita">Sucharita</option>
+                   	<option value="Ankita">Ankita</option>
+                   	<option value="Madhura">Madhura</option>
+                   	<option value="Vaidehi">Vaidehi</option>
+                   	</select>
+                </div>
+            </div>
+       </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </div>
+   </form>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- Modal - Project Status-->
+ <div class="modal fade" id="projstatModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+ <div class="modal-dialog">
+  <div class="modal-content">
+  <div class="modal-header">
+  
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h4 class="modal-title"><b>Project Status</b></h4>
+  </div>
+  <div class="modal-body" style="height: 240px;">
+   <p><b><i>Maximum Limit in each Queue: 5</i></b></p>
+           <h3><b>Number of cards in Queue</b></h3>
+           	<div class = row>
+  				<div class="col-md-7"
+  					<p>READY TO START</p>
+  				</div>
+  				<div class="col-md-3"
+  					<p><%= tablelist[0].Count_RTS_TITLE %></p>
+  				</div>
+  			</div>
+  			  	<div class = row>
+  				<div class="col-md-7"
+  					<p>IN PROGRESS</p>
+  				</div>
+  				<div class="col-md-3"
+  					<p><%= tablelist[0].Count_IP_TITLE %></p>
+  				</div>
+  			</div>
+  			  	<div class = row>
+  				<div class="col-md-7"
+  					<p>READY FOR REVIEW</p>
+  				</div>
+  				<div class="col-md-3"
+  					<p><%= tablelist[0].Count_RFR_TITLE %></p>
+  				</div>
+  			</div>
+  			  	<div class = row>
+  				<div class="col-md-7"
+  					<p>RECENTLY FINISHED</p>
+  				</div>
+  				<div class="col-md-3"
+  					<p><%= tablelist[0].Count_RF_TITLE %></p>
+  				</div>
+  			</div>
+  			<p><b><i><font style="BACKGROUND-COLOR: lightgreen" color="green">All Queues are within the maximum limit</font></i></b></p>
+       </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+  </div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+ <script>
+  $('#myModal').on('show.bs.modal', function (event) {
+  var li = $(event.relatedTarget) // Button that triggered the modal
+ var recipient = li.data('whatever') // Extract info from data-* attributes
+ var modal = $(this)
+ modal.find('.modal-title').text(recipient)
+  })
+  </script>
+  
+  <script>
+$(document).ready(function(){
+   $('.anchorforCard').on('click',function(e){
+     e.preventDefault();
+      var title = $(this).find('.open-AddCardTitle').data('id');
+      $(".modal-body #title").val( title );
+      var desc = $(this).find('.open-AddCardDesc').data('id');
+      $(".modal-body #desc").val( desc );
+   });
+});
+ </script> 
+  <script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+   $(function() {
+    $( "#datepicker1" ).datepicker();
+  });
+     $(function() {
+    $( "#datepicker2" ).datepicker();
+  });
+     $(function() {
+    $( "#datepicker3" ).datepicker();
+  });
+  </script>
+  
+	</body>
+</html>
